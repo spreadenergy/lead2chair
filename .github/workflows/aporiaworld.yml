@@ -1,0 +1,103 @@
+name: AporiaWorld Transport
+
+on:
+  workflow_dispatch:
+    inputs:
+      operation:
+        description: "AporiaWorld operation"
+        required: true
+        default: "who_am_i"
+        type: choice
+        options:
+          - who_am_i
+          - manifest
+          - principals
+          - inbox
+          - objects
+      limit:
+        description: "Maximum results where applicable"
+        required: false
+        default: "50"
+        type: string
+  push:
+    branches: ["main"]
+    paths:
+      - ".github/workflows/aporiaworld.yml"
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  aporiaworld:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Obtain GitHub OIDC token
+        id: oidc
+        shell: bash
+        run: |
+          REQUEST_URL="$ACTIONS_ID_TOKEN_REQUEST_URL"
+          if [[ "$REQUEST_URL" == *"?"* ]]; then
+            REQUEST_URL="${REQUEST_URL}&audience=aporiaworld"
+          else
+            REQUEST_URL="${REQUEST_URL}?audience=aporiaworld"
+          fi
+
+          TOKEN="$(curl --fail-with-body --silent --show-error \
+            -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
+            "$REQUEST_URL" | jq -r '.value')"
+
+          if [ -z "$TOKEN" ] || [ "$TOKEN" = "null" ]; then
+            echo "Failed to obtain GitHub OIDC token." >&2
+            exit 1
+          fi
+
+          echo "::add-mask::$TOKEN"
+          echo "token=$TOKEN" >> "$GITHUB_OUTPUT"
+
+      - name: Call AporiaWorld
+        id: aporiaworld
+        shell: bash
+        env:
+          OIDC_TOKEN: ${{ steps.oidc.outputs.token }}
+          OPERATION: ${{ github.event_name == 'workflow_dispatch' && inputs.operation || 'who_am_i' }}
+          LIMIT: ${{ github.event_name == 'workflow_dispatch' && inputs.limit || '50' }}
+        run: |
+          jq -n \
+            --arg op "$OPERATION" \
+            --argjson limit "${LIMIT:-50}" \
+            '{op:$op,limit:$limit}' > request.json
+
+          HTTP_CODE="$(curl --silent --show-error \
+            --output response.json \
+            --write-out "%{http_code}" \
+            --request POST \
+            --header "Authorization: Bearer $OIDC_TOKEN" \
+            --header "Content-Type: application/json" \
+            --data @request.json \
+            "https://myjszczyzscrsvujpybd.supabase.co/functions/v1/aporiaworld-github-transport")"
+
+          cat response.json | jq .
+
+          if [ "$HTTP_CODE" -lt 200 ] || [ "$HTTP_CODE" -ge 300 ]; then
+            echo "AporiaWorld returned HTTP $HTTP_CODE." >&2
+            exit 1
+          fi
+
+          jq -e '.transport_verified == true' response.json >/dev/null
+          jq -e '.principal == "juan-ai"' response.json >/dev/null
+
+      - name: Write verification summary
+        if: success()
+        shell: bash
+        run: |
+          {
+            echo "## AporiaWorld transport verification"
+            echo
+            echo "- GitHub transport repository: \`spreadenergy/lead2chair\`"
+            echo "- AporiaWorld identity: \`juan-ai\`"
+            echo "- Operation: \`${{ github.event_name == 'workflow_dispatch' && inputs.operation || 'who_am_i' }}\`"
+            echo "- OIDC audience: \`aporiaworld\`"
+            echo "- Persistent credentials exported: **no**"
+            echo "- Transport verification: **passed**"
+          } >> "$GITHUB_STEP_SUMMARY"
