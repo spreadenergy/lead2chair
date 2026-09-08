@@ -165,7 +165,7 @@ jobs:
               "https://ypvweekumjkqlvozczun.supabase.co/functions/v1/aporiaworld-github-transport")"
 
             # This repository is public: log the verification receipt, not inbox bodies.
-            jq '{transport_verified,principal,operation,space_slug,
+            jq '{error,code,failed_checks,transport_verified,principal,operation,space_slug,
                  result:{ok:.result.ok,space_slug:.result.space_slug,space_id:.result.space_id,
                          principal:.result.principal,next_cursor:.result.next_cursor,
                          cursor_before:.result.cursor_before,cursor_stream:.result.cursor_stream,
