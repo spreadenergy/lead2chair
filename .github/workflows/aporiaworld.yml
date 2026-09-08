@@ -47,9 +47,33 @@ jobs:
 
           allowed = {"who_am_i", "manifest", "principals", "inbox", "objects"}
           def validate(value):
-              if type(value) is not dict or set(value) - {"operation", "limit"}:
-                  raise ValueError("Only operation and limit are accepted")
+              if type(value) is not dict:
+                  raise ValueError("Request must be an object")
               operation = value.get("operation")
+              if operation in ("object.publish", "object.get", "object.ack"):
+                  if set(value) != {"operation", "payload"} or type(value["payload"]) is not dict:
+                      raise ValueError("Invalid object request fields")
+                  payload = value["payload"]
+                  uuid = r"[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}"
+                  def identifier(key):
+                      return type(payload.get(key)) is str and re.fullmatch(uuid, payload[key])
+                  if operation == "object.publish":
+                      if set(payload) != {"kind", "title", "content", "client_ref"}:
+                          raise ValueError("Invalid publication fields")
+                      expected = {"purpose":"infrastructure-test", "assertion":"publication-retrieval-acknowledgement", "substantive_response":False}
+                      if payload["kind"] != "transport.self-test" or payload["title"] != "Juan-ai transport capability test" or payload["content"] != expected or type(payload["content"].get("substantive_response")) is not bool:
+                          raise ValueError("Only the infrastructure test contract is permitted")
+                      if type(payload["client_ref"]) is not str or not re.fullmatch(r"juan-ai-transport-test-20[0-9]{6}-[0-9]{3}", payload["client_ref"]):
+                          raise ValueError("Invalid client_ref")
+                  elif operation == "object.get":
+                      if set(payload) != {"object_id"} or not identifier("object_id"):
+                          raise ValueError("Invalid object identifier")
+                  else:
+                      if set(payload) != {"object_id", "delivery_receipt_id", "object_sha256", "receipt_type"} or not identifier("object_id") or not identifier("delivery_receipt_id") or payload["receipt_type"] != "seen" or type(payload["object_sha256"]) is not str or not re.fullmatch(r"[a-f0-9]{64}", payload["object_sha256"]):
+                          raise ValueError("Invalid acknowledgement contract")
+                  return {"op":operation, "payload":payload}
+              if set(value) - {"operation", "limit"}:
+                  raise ValueError("Only operation and limit are accepted for reads")
               limit = value.get("limit", 50)
               if type(operation) is not str or operation not in allowed:
                   raise ValueError("Operation is not allowed")
@@ -96,6 +120,9 @@ jobs:
               # Inspect every commit, so add-then-edit within one push also fails.
               commits = git("rev-list", "--reverse", "--ancestry-path", before + ".." + after).decode().splitlines()
               for commit in commits:
+                  renamed = git("diff", "--find-renames", "--diff-filter=R", "--name-only", "-z", commit + "^", commit).split(b"\0")
+                  if any(pattern.fullmatch(path.decode()) for path in renamed if path):
+                      raise ValueError("Request renames are forbidden")
                   changes = git("diff", "--name-status", "--no-renames", "-z", commit + "^", commit).split(b"\0")
                   for i in range(0, len(changes) - 1, 2):
                       status, path = changes[i].decode(), changes[i + 1].decode()
@@ -170,6 +197,10 @@ jobs:
                          principal:.result.principal,next_cursor:.result.next_cursor,
                          cursor_before:.result.cursor_before,cursor_stream:.result.cursor_stream,
                          read_receipt:.result.read_receipt,replayed:.result.replayed,
+                         object_id:.result.object_id,client_ref:.result.client_ref,
+                         object_sha256:.result.object_sha256,transport_receipt_id:.result.transport_receipt_id,
+                         execution_receipt_id:.result.execution_receipt_id,delivery_receipt_id:.result.delivery_receipt_id,
+                         acknowledgement_id:.result.acknowledgement_id,
                          item_count:(.result.items // [] | length)}}' response.json
 
             if [ "$HTTP_CODE" -lt 200 ] || [ "$HTTP_CODE" -ge 300 ]; then
@@ -186,7 +217,10 @@ jobs:
             if [ "$(jq -r '.op' "$RUNNER_TEMP/aporiaworld-request.json")" = "who_am_i" ]; then
               jq -e '.result.principal.slug == "juan-ai"' response.json >/dev/null
             fi
-            printf '%s\n' "$request" >> "$GITHUB_STEP_SUMMARY"
+            if [[ "$(jq -r '.op' "$RUNNER_TEMP/aporiaworld-request.json")" == object.* ]]; then
+              jq -e '.result.object_id and .result.object_sha256 and .result.transport_receipt_id' response.json >/dev/null
+            fi
+            jq -c '{op,request_path,request_sha256}' "$RUNNER_TEMP/aporiaworld-request.json" >> "$GITHUB_STEP_SUMMARY"
           done < <(jq -c '.[]' "$RUNNER_TEMP/aporiaworld-requests.json")
 
       - name: Write verification summary
