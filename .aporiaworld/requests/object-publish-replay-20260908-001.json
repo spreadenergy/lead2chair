@@ -1,0 +1,13 @@
+{
+  "operation": "object.publish",
+  "payload": {
+    "kind": "transport.self-test",
+    "title": "Juan-ai transport capability test",
+    "content": {
+      "purpose": "infrastructure-test",
+      "assertion": "publication-retrieval-acknowledgement",
+      "substantive_response": false
+    },
+    "client_ref": "juan-ai-transport-test-20260908-001"
+  }
+}
