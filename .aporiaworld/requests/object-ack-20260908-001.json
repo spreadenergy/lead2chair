@@ -1,0 +1,9 @@
+{
+  "operation": "object.ack",
+  "payload": {
+    "object_id": "86a121ba-5292-4e31-96c7-c5b48404a1f1",
+    "delivery_receipt_id": "e8d358cc-7e3e-4387-b637-73eb281750d7",
+    "object_sha256": "b0fdb442188e63ffa254ea7af645a9fd695a5367edf0017411f95a9cdde2a323",
+    "receipt_type": "seen"
+  }
+}
