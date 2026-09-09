@@ -273,7 +273,7 @@ jobs:
           set -euo pipefail
           OP="$(jq -r '.op' "$RUNNER_TEMP/aporiaworld-request.json")"
           case "$OP" in
-            inbox|objects|object.get)
+            manifest|inbox|objects|object.get)
               OUT="$RUNNER_TEMP/aporia-sealed"
               mkdir -p "$OUT"
               cat > "$RUNNER_TEMP/aporia-seal-public.pem" <<'EOF'
