@@ -42,14 +42,39 @@ jobs:
       - name: Validate new requests before obtaining credentials
         shell: python
         run: |
-          import hashlib, json, os, re, subprocess
+          import hashlib, json, math, os, re, subprocess
           from pathlib import Path
 
           allowed = {"who_am_i", "manifest", "principals", "inbox", "objects"}
-          def validate(value):
+          constitution_decisions = {"adopt", "adopt_with_amendments", "decline", "defer"}
+          constitution_client_ref = re.compile(r"juan-ai-constitution-response-v1-20[0-9]{6}-[0-9]{3}")
+
+          def validate(value, allow_constitution=False):
               if type(value) is not dict:
                   raise ValueError("Request must be an object")
               operation = value.get("operation")
+              if operation == "constitution.respond":
+                  if not allow_constitution:
+                      raise ValueError("constitution.respond is only permitted from a newly added request file")
+                  if set(value) != {"operation", "payload"} or type(value["payload"]) is not dict:
+                      raise ValueError("Invalid constitution response fields")
+                  payload = value["payload"]
+                  if set(payload) != {"decision", "confidence", "response_markdown", "client_ref"}:
+                      raise ValueError("Invalid constitution response payload fields")
+                  if payload["decision"] not in constitution_decisions:
+                      raise ValueError("Invalid constitution decision")
+                  confidence = payload["confidence"]
+                  if type(confidence) not in (int, float) or isinstance(confidence, bool) or not math.isfinite(confidence) or not 0 <= confidence <= 1:
+                      raise ValueError("confidence must be a finite JSON number from 0 through 1")
+                  response_markdown = payload["response_markdown"]
+                  if type(response_markdown) is not str or "\x00" in response_markdown:
+                      raise ValueError("response_markdown must be a NUL-free string")
+                  response_bytes = len(response_markdown.encode("utf-8"))
+                  if not 1000 <= response_bytes <= 14000:
+                      raise ValueError("response_markdown must be between 1000 and 14000 UTF-8 bytes")
+                  if type(payload["client_ref"]) is not str or not constitution_client_ref.fullmatch(payload["client_ref"]):
+                      raise ValueError("Invalid constitution client_ref")
+                  return {"op": operation, "payload": payload}
               if operation in ("object.publish", "object.get", "object.ack"):
                   if set(value) != {"operation", "payload"} or type(value["payload"]) is not dict:
                       raise ValueError("Invalid object request fields")
@@ -81,8 +106,8 @@ jobs:
                   raise ValueError("limit must be an integer from 1 to 200")
               return {"op": operation, "limit": limit}
 
-          def envelope(value, path, raw=None):
-              result = validate(value)
+          def envelope(value, path, raw=None, allow_constitution=False):
+              result = validate(value, allow_constitution=allow_constitution)
               data = raw if raw is not None else json.dumps(value, sort_keys=True).encode()
               result.update(request_path=path, request_sha256=hashlib.sha256(data).hexdigest())
               return result
@@ -94,6 +119,9 @@ jobs:
                       raise ValueError("Duplicate JSON keys are not accepted")
                   result[key] = value
               return result
+
+          def reject_constant(value):
+              raise ValueError("Non-finite JSON numbers are not accepted")
 
           def git(*args):
               return subprocess.check_output(["git", *args])
@@ -138,11 +166,11 @@ jobs:
                   if not entry.startswith("100644 blob "):
                       raise ValueError("Requests must be regular non-executable files")
                   data = git("show", after + ":" + path)
-                  if len(data) > 4096:
-                      raise ValueError("Request exceeds 4096 bytes")
+                  if len(data) > 16000:
+                      raise ValueError("Request exceeds 16000 bytes")
                   if not re.fullmatch(r"\.aporiaworld/requests/[A-Za-z0-9][A-Za-z0-9._-]*\.json", path):
                       raise ValueError("Request filename is not transport-safe")
-                  requests.append(envelope(json.loads(data, object_pairs_hook=unique_keys), path, data))
+                  requests.append(envelope(json.loads(data, object_pairs_hook=unique_keys, parse_constant=reject_constant), path, data, allow_constitution=True))
               changed = git("diff", "--name-only", "-z", before, after).split(b"\0")
               if b".github/workflows/aporiaworld.yml" in changed:
                   requests.insert(0, envelope({"operation": "who_am_i"}, "workflow"))
@@ -191,7 +219,7 @@ jobs:
               --data @"$RUNNER_TEMP/aporiaworld-request.json" \
               "https://ypvweekumjkqlvozczun.supabase.co/functions/v1/aporiaworld-github-transport")"
 
-            # This repository is public: log the verification receipt, not inbox bodies.
+            # This repository is public: log the verification receipt, not inbox or response bodies.
             jq '{error,code,reason,failed_checks,transport_verified,principal,operation,space_slug,
                  result:{ok:.result.ok,space_slug:.result.space_slug,space_id:.result.space_id,
                          principal:.result.principal,next_cursor:.result.next_cursor,
@@ -201,6 +229,10 @@ jobs:
                          object_sha256:.result.object_sha256,transport_receipt_id:.result.transport_receipt_id,
                          execution_receipt_id:.result.execution_receipt_id,delivery_receipt_id:.result.delivery_receipt_id,
                          acknowledgement_id:.result.acknowledgement_id,
+                         decision:.result.decision,confidence:.result.confidence,
+                         canonical_constitution_object_id:.result.canonical_constitution_object_id,
+                         legacy_task_ref:.result.legacy_task_ref,relation_id:.result.relation_id,
+                         relation_type:.result.relation_type,
                          item_count:(.result.items // [] | length)}}' response.json
 
             if [ "$HTTP_CODE" -lt 200 ] || [ "$HTTP_CODE" -ge 300 ]; then
@@ -219,6 +251,17 @@ jobs:
             fi
             if [[ "$(jq -r '.op' "$RUNNER_TEMP/aporiaworld-request.json")" == object.* ]]; then
               jq -e '.result.object_id and .result.object_sha256 and .result.transport_receipt_id' response.json >/dev/null
+            fi
+            if [ "$(jq -r '.op' "$RUNNER_TEMP/aporiaworld-request.json")" = "constitution.respond" ]; then
+              jq -e '.result.object_id and
+                     .result.object_sha256 and
+                     .result.transport_receipt_id and
+                     .result.execution_receipt_id and
+                     .result.relation_id and
+                     .result.relation_type == "responds_to" and
+                     .result.canonical_constitution_object_id == "990d0dc0-23f7-4a6e-8e4b-cff671afc911" and
+                     .result.decision == "adopt_with_amendments" and
+                     .result.confidence == 0.86' response.json >/dev/null
             fi
             jq -c '{op,request_path,request_sha256}' "$RUNNER_TEMP/aporiaworld-request.json" >> "$GITHUB_STEP_SUMMARY"
           done < <(jq -c '.[]' "$RUNNER_TEMP/aporiaworld-requests.json")
