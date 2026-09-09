@@ -266,6 +266,56 @@ jobs:
             jq -c '{op,request_path,request_sha256}' "$RUNNER_TEMP/aporiaworld-request.json" >> "$GITHUB_STEP_SUMMARY"
           done < <(jq -c '.[]' "$RUNNER_TEMP/aporiaworld-requests.json")
 
+      - name: Seal read response for private inspection
+        if: success()
+        shell: bash
+        run: |
+          set -euo pipefail
+          OP="$(jq -r '.op' "$RUNNER_TEMP/aporiaworld-request.json")"
+          case "$OP" in
+            inbox|objects|object.get)
+              OUT="$RUNNER_TEMP/aporia-sealed"
+              mkdir -p "$OUT"
+              cat > "$RUNNER_TEMP/aporia-seal-public.pem" <<'EOF'
+          -----BEGIN PUBLIC KEY-----
+          MIIBojANBgkqhkiG9w0BAQEFAAOCAY8AMIIBigKCAYEAkK2tek1LkInfarYODYyc
+          HPK1KZibRf7kLG3BrJrqxtZgFDnD6MPqbQDV/bo3ODFerAHLXrY8HExHvJYPQEiE
+          Zcuvw2kvLA+4Z6gM89BFWeZEcMmYzvky3fuoUXeV/eFCi6ZlKPZoiPSEufsF6GZm
+          bWDrB5J1bw+O7gTrhZmOT9C7+Fq3FD8clThyNJYXw6c8NJeb4EQ8mt82Qfle1ZWW
+          Ah4td9LtS9jGEFCsngLJf9W8IqxbcWrB6RXpH54GFkMBh5VB0pJefYaprWJhp+uP
+          8M1HjQX0ZSsDes+HSpHEvaOCZpvRnsgMxPIIFx4nR4KQFBl3Aa7ItkJVfRgmo57C
+          A8fsHvbQsD1lobTQVPEPsHplGg2735VwMrVS+r0UZTw8krOlV3g+yt1UDNVLHDCb
+          iDcjFuphsSjskdcoS1x9rUiYr3eUevhZgbabwr3aXMOMci/3+vvH0x7sXydMaP0b
+          XZFubHgEUMJfZuNOxq5PTMh34MOk92T0SLmE0SDxX0E/AgMBAAE=
+          -----END PUBLIC KEY-----
+          EOF
+              KEY_HEX="$(openssl rand -hex 32)"
+              IV_HEX="$(openssl rand -hex 16)"
+              printf '%s' "$KEY_HEX" > "$RUNNER_TEMP/aporia-key.txt"
+              openssl enc -aes-256-cbc -K "$KEY_HEX" -iv "$IV_HEX" \
+                -in response.json -out "$OUT/response.enc"
+              openssl pkeyutl -encrypt -pubin \
+                -inkey "$RUNNER_TEMP/aporia-seal-public.pem" \
+                -in "$RUNNER_TEMP/aporia-key.txt" -out "$OUT/key.enc" \
+                -pkeyopt rsa_padding_mode:oaep -pkeyopt rsa_oaep_md:sha256
+              printf '%s\n' "$IV_HEX" > "$OUT/iv.txt"
+              printf '%s\n' "$OP" > "$OUT/operation.txt"
+              chmod 600 "$OUT/response.enc" "$OUT/key.enc" "$OUT/iv.txt" "$OUT/operation.txt"
+              shred -u "$RUNNER_TEMP/aporia-key.txt" 2>/dev/null || rm -f "$RUNNER_TEMP/aporia-key.txt"
+              rm -f "$RUNNER_TEMP/aporia-seal-public.pem"
+              ;;
+          esac
+
+      - name: Upload sealed read response
+        if: success()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: aporia-sealed-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/aporia-sealed
+          if-no-files-found: ignore
+          retention-days: 1
+          compression-level: 0
+
       - name: Write verification summary
         if: success()
         shell: bash
