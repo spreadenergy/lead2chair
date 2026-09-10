@@ -253,15 +253,17 @@ jobs:
               jq -e '.result.object_id and .result.object_sha256 and .result.transport_receipt_id' response.json >/dev/null
             fi
             if [ "$(jq -r '.op' "$RUNNER_TEMP/aporiaworld-request.json")" = "constitution.respond" ]; then
-              jq -e '.result.object_id and
+              SUBMITTED_DECISION="$(jq -r '.payload.decision' "$RUNNER_TEMP/aporiaworld-request.json")"
+              SUBMITTED_CONFIDENCE="$(jq -c '.payload.confidence' "$RUNNER_TEMP/aporiaworld-request.json")"
+              jq -e --arg decision "$SUBMITTED_DECISION" --argjson confidence "$SUBMITTED_CONFIDENCE" '.result.object_id and
                      .result.object_sha256 and
                      .result.transport_receipt_id and
                      .result.execution_receipt_id and
                      .result.relation_id and
                      .result.relation_type == "responds_to" and
                      .result.canonical_constitution_object_id == "990d0dc0-23f7-4a6e-8e4b-cff671afc911" and
-                     .result.decision == "adopt_with_amendments" and
-                     .result.confidence == 0.86' response.json >/dev/null
+                     .result.decision == $decision and
+                     .result.confidence == $confidence' response.json >/dev/null
             fi
             jq -c '{op,request_path,request_sha256}' "$RUNNER_TEMP/aporiaworld-request.json" >> "$GITHUB_STEP_SUMMARY"
           done < <(jq -c '.[]' "$RUNNER_TEMP/aporiaworld-requests.json")
