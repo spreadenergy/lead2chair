@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Las Plebes Tacos y Mariscos · Fresno, CA</title>
+  <meta name="description" content="Las Plebes Tacos y Mariscos — authentic Sinaloa-style tacos and seafood in Fresno, CA. Visit us at 4326 E Cesar Chavez Blvd.">
+  <link rel="canonical" href="https://lasplebes.com/">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#0b5563">
+
+  <meta property="og:type" content="restaurant">
+  <meta property="og:title" content="Las Plebes Tacos y Mariscos · Fresno, CA">
+  <meta property="og:description" content="Sabor auténtico de Sinaloa. Tacos, mariscos, antojitos y Clamatasos en Fresno.">
+  <meta property="og:url" content="https://lasplebes.com/">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Restaurant",
+    "name": "Las Plebes Tacos y Mariscos",
+    "url": "https://lasplebes.com/",
+    "servesCuisine": ["Mexican", "Seafood", "Sinaloan"],
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "4326 E Cesar Chavez Blvd",
+      "addressLocality": "Fresno",
+      "addressRegion": "CA",
+      "postalCode": "93702",
+      "addressCountry": "US"
+    },
+    "openingHoursSpecification": [
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Tuesday","Wednesday","Thursday","Friday"], "opens": "10:00", "closes": "18:00" },
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Saturday","Sunday"], "opens": "09:00", "closes": "17:00" }
+    ]
+  }
+  </script>
+
+  <style>
+    :root {
+      --ocean: #0b5563;
+      --ocean-deep: #073a44;
+      --lime: #9bc53d;
+      --chile: #e4572e;
+      --sand: #fdf6ec;
+      --ink: #1d2327;
+      --muted: #5b666c;
+      --card: #ffffff;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      color: var(--ink);
+      background: var(--sand);
+      line-height: 1.55;
+    }
+    a { color: inherit; }
+    .wrap { max-width: 1040px; margin: 0 auto; padding: 0 20px; }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      color: #fff;
+      background:
+        radial-gradient(circle at 85% 15%, rgba(155,197,61,.35), transparent 40%),
+        radial-gradient(circle at 10% 90%, rgba(228,87,46,.35), transparent 45%),
+        linear-gradient(160deg, var(--ocean) 0%, var(--ocean-deep) 100%);
+      padding: 28px 0 96px;
+      overflow: hidden;
+    }
+    .hero::after {
+      content: "";
+      position: absolute; left: 0; right: 0; bottom: -1px; height: 60px;
+      background: var(--sand);
+      -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 60' preserveAspectRatio='none'%3E%3Cpath d='M0 30 Q150 0 300 30 T600 30 T900 30 T1200 30 V60 H0Z'/%3E%3C/svg%3E") center/100% 100% no-repeat;
+              mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 60' preserveAspectRatio='none'%3E%3Cpath d='M0 30 Q150 0 300 30 T600 30 T900 30 T1200 30 V60 H0Z'/%3E%3C/svg%3E") center/100% 100% no-repeat;
+    }
+    .topbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .brand-mini { font-family: "Bowlby One", Impact, sans-serif; letter-spacing: .5px; font-size: 1.05rem; text-decoration: none; }
+    .badge {
+      display: inline-block; padding: 6px 12px; border-radius: 999px;
+      background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.25);
+      font-size: .82rem; font-weight: 600;
+    }
+    .hero-body { text-align: center; padding-top: 56px; }
+    .eyebrow { text-transform: uppercase; letter-spacing: 3px; font-size: .8rem; font-weight: 700; color: var(--lime); margin: 0 0 10px; }
+    h1 {
+      font-family: "Bowlby One", Impact, sans-serif;
+      font-weight: 400;
+      font-size: clamp(2.6rem, 9vw, 5.2rem);
+      line-height: .95;
+      margin: 0;
+      text-shadow: 0 4px 0 rgba(0,0,0,.18);
+    }
+    h1 span { display: block; font-size: .42em; letter-spacing: 2px; color: #ffe8a3; margin-top: 12px; }
+    .tagline { max-width: 560px; margin: 22px auto 0; font-size: 1.1rem; opacity: .95; }
+    .cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 30px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 22px; border-radius: 12px; font-weight: 700; text-decoration: none;
+      transition: transform .15s ease, box-shadow .15s ease;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn:focus-visible { outline: 3px solid #ffe8a3; outline-offset: 3px; }
+    .btn-primary { background: var(--chile); color: #fff; box-shadow: 0 6px 18px rgba(228,87,46,.4); }
+    .btn-ghost { background: rgba(255,255,255,.12); color: #fff; border: 1px solid rgba(255,255,255,.35); }
+
+    /* Sections */
+    section { padding: 56px 0; }
+    h2 { font-family: "Bowlby One", Impact, sans-serif; font-weight: 400; font-size: clamp(1.6rem, 4vw, 2.2rem); margin: 0 0 8px; color: var(--ocean-deep); }
+    .lead { color: var(--muted); margin: 0 0 28px; max-width: 640px; }
+
+    .grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
+    .card {
+      background: var(--card); border-radius: 16px; padding: 22px;
+      box-shadow: 0 1px 2px rgba(0,0,0,.05), 0 8px 24px rgba(11,85,99,.08);
+      border-top: 4px solid var(--lime);
+    }
+    .card:nth-child(3n+2) { border-top-color: var(--chile); }
+    .card:nth-child(3n) { border-top-color: var(--ocean); }
+    .card .icon { font-size: 1.8rem; line-height: 1; }
+    .card h3 { margin: 10px 0 4px; font-size: 1.1rem; }
+    .card p { margin: 0; color: var(--muted); font-size: .95rem; }
+
+    .visit { background: #fff; }
+    .visit-grid { display: grid; gap: 28px; grid-template-columns: 1fr 1fr; align-items: start; }
+    .info h3 { margin: 0 0 6px; font-size: .8rem; text-transform: uppercase; letter-spacing: 2px; color: var(--chile); }
+    .info address { font-style: normal; font-size: 1.15rem; font-weight: 600; margin-bottom: 18px; }
+    table.hours { border-collapse: collapse; width: 100%; max-width: 360px; margin-bottom: 22px; }
+    table.hours td { padding: 8px 0; border-bottom: 1px dashed #d9dfe2; }
+    table.hours td:last-child { text-align: right; font-weight: 600; }
+    table.hours tr.today td { color: var(--ocean); }
+    table.hours tr.closed td:last-child { color: var(--muted); font-weight: 400; }
+    .status { display: inline-block; margin-bottom: 14px; font-weight: 700; font-size: .9rem; }
+    .status.open { color: #2e7d32; }
+    .status.shut { color: var(--chile); }
+    .map { width: 100%; aspect-ratio: 4/3; border: 0; border-radius: 16px; box-shadow: 0 8px 24px rgba(11,85,99,.12); background: #e6eef0; }
+    .btn-dark { background: var(--ocean); color: #fff; }
+
+    .soon {
+      text-align: center; background: var(--ocean-deep); color: #fff; border-radius: 20px;
+      padding: 36px 24px; margin: 0 20px;
+    }
+    .soon h2 { color: #ffe8a3; }
+    .soon p { margin: 0 auto; max-width: 560px; opacity: .92; }
+
+    footer { padding: 36px 0 44px; text-align: center; color: var(--muted); font-size: .9rem; }
+
+    @media (max-width: 760px) {
+      .visit-grid { grid-template-columns: 1fr; }
+      .hero { padding-bottom: 80px; }
+      .hero-body { padding-top: 36px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .btn { transition: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="hero">
+    <div class="wrap">
+      <div class="topbar">
+        <a class="brand-mini" href="/">LAS PLEBES</a>
+        <span class="badge">🌊 Fresno, California</span>
+      </div>
+
+      <div class="hero-body">
+        <p class="eyebrow">Sabor auténtico de Sinaloa</p>
+        <h1>Las Plebes<span>TACOS Y MARISCOS</span></h1>
+        <p class="tagline">Mariscos frescos, tacos callejeros, antojitos sinaloenses y nuestros famosos Clamatasos — en un ambiente familiar y lleno de vida.</p>
+        <div class="cta">
+          <a class="btn btn-primary" href="https://www.doordash.com/store/las-plebes-tacos-y-mariscos---4326-e-cesar-chavez-blvd-fresno-34682316/" target="_blank" rel="noopener">🛵 Ordenar en línea</a>
+          <a class="btn btn-ghost" href="#visitanos">📍 Visítanos</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="menu">
+      <div class="wrap">
+        <h2>Lo que servimos</h2>
+        <p class="lead">Fresh Sinaloa-style seafood and street favorites, made with bold flavors and fresh ingredients.</p>
+
+        <div class="grid">
+          <article class="card">
+            <div class="icon">🦐</div>
+            <h3>Barra Fría</h3>
+            <p>Cocteles, aguachiles, ceviches y tostadas de mariscos.</p>
+          </article>
+          <article class="card">
+            <div class="icon">🌮</div>
+            <h3>Tacos</h3>
+            <p>Tacos callejeros y de mariscos, con tortillas hechas a mano.</p>
+          </article>
+          <article class="card">
+            <div class="icon">🔥</div>
+            <h3>Platillos Calientes</h3>
+            <p>Mariscos al gusto, burritos y platos fuertes.</p>
+          </article>
+          <article class="card">
+            <div class="icon">🫓</div>
+            <h3>Antojitos Sinaloenses</h3>
+            <p>Vampiros y otros clásicos de Sinaloa.</p>
+          </article>
+          <article class="card">
+            <div class="icon">🍲</div>
+            <h3>Caldos</h3>
+            <p>Pozole, menudo, caldo de res y caldo de pollo.</p>
+          </article>
+          <article class="card">
+            <div class="icon">🍹</div>
+            <h3>Clamatasos</h3>
+            <p>Nuestra especialidad de la casa. ¡Tienes que probarlos!</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="visitanos" class="visit">
+      <div class="wrap visit-grid">
+        <div class="info">
+          <h2>Visítanos</h2>
+          <p class="lead">Come hungry — we'll take care of the rest.</p>
+
+          <h3>Dirección</h3>
+          <address>
+            4326 E Cesar Chavez Blvd<br>
+            Fresno, CA 93702
+          </address>
+
+          <h3>Horario</h3>
+          <div id="status" class="status" aria-live="polite"></div>
+          <table class="hours" aria-label="Horario">
+            <tbody>
+              <tr data-day="1" class="closed"><td>Lunes</td><td>Cerrado</td></tr>
+              <tr data-day="2"><td>Martes</td><td>10:00 AM – 6:00 PM</td></tr>
+              <tr data-day="3"><td>Miércoles</td><td>10:00 AM – 6:00 PM</td></tr>
+              <tr data-day="4"><td>Jueves</td><td>10:00 AM – 6:00 PM</td></tr>
+              <tr data-day="5"><td>Viernes</td><td>10:00 AM – 6:00 PM</td></tr>
+              <tr data-day="6"><td>Sábado</td><td>9:00 AM – 5:00 PM</td></tr>
+              <tr data-day="0"><td>Domingo</td><td>9:00 AM – 5:00 PM</td></tr>
+            </tbody>
+          </table>
+
+          <div class="cta" style="justify-content:flex-start;margin-top:0">
+            <a class="btn btn-dark" href="https://www.google.com/maps/dir/?api=1&amp;destination=4326+E+Cesar+Chavez+Blvd,+Fresno,+CA+93702" target="_blank" rel="noopener">🧭 Cómo llegar</a>
+            <!-- Enable once the phone number is confirmed by the owner:
+            <a class="btn btn-primary" href="tel:+15590000000">📞 (559) 000-0000</a>
+            -->
+          </div>
+        </div>
+
+        <iframe
+          class="map"
+          title="Mapa: Las Plebes Tacos y Mariscos, 4326 E Cesar Chavez Blvd, Fresno"
+          src="https://www.google.com/maps?q=4326+E+Cesar+Chavez+Blvd,+Fresno,+CA+93702&amp;output=embed"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </section>
+
+    <section>
+      <div class="soon">
+        <h2>¡Muy pronto!</h2>
+        <p>Nuestro sitio completo con menú y precios viene en camino. Mientras tanto, ven a visitarnos o haz tu pedido en línea.<br><em>Our full website is on the way — see you soon!</em></p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <p>© <span id="year">2026</span> Las Plebes Tacos y Mariscos · Fresno, California</p>
+    </div>
+  </footer>
+
+  <script>
+    // Highlight today's hours and show open/closed status in Fresno time (America/Los_Angeles).
+    (function () {
+      var hours = { 0: [9, 17], 1: null, 2: [10, 18], 3: [10, 18], 4: [10, 18], 5: [10, 18], 6: [9, 17] };
+      var now;
+      try {
+        now = new Date(new Date().toLocaleString("en-US", { timeZone: "America/Los_Angeles" }));
+      } catch (e) {
+        now = new Date();
+      }
+      var day = now.getDay();
+      var h = now.getHours() + now.getMinutes() / 60;
+      var row = document.querySelector('tr[data-day="' + day + '"]');
+      if (row) row.classList.add("today");
+
+      var el = document.getElementById("status");
+      var today = hours[day];
+      if (today && h >= today[0] && h < today[1]) {
+        el.textContent = "● Abierto ahora";
+        el.className = "status open";
+      } else {
+        el.textContent = "● Cerrado ahora";
+        el.className = "status shut";
+      }
+      document.getElementById("year").textContent = now.getFullYear();
+    })();
+  </script>
+</body>
+</html>
