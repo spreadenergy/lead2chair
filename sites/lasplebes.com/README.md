@@ -5,10 +5,24 @@ No build step, no dependencies beyond Google Fonts and a Google Maps embed.
 
 ## Deploy to Hostinger
 
-1. hPanel → **Websites → lasplebes.com → File Manager** (or FTP).
-2. Upload the *contents* of `public_html/` into the site's `public_html/` folder
-   (`index.html`, `favicon.svg`, `robots.txt`, `sitemap.xml`, `.htaccess`).
-   Remove Hostinger's default `default.php` / parking `index.php` if present.
+### Automatic (GitHub Actions)
+`.github/workflows/deploy-lasplebes.yml` uploads `public_html/` over SSH whenever it changes on `main`
+(or on demand via **Actions → Deploy lasplebes.com → Run workflow**). This repo is public, so connection
+details live only in **Settings → Secrets and variables → Actions**:
+
+| Secret | Value |
+|---|---|
+| `HOSTINGER_SSH_COMMAND` | The `ssh -p … user@host` line from hPanel → Advanced → SSH Access |
+| `HOSTINGER_SSH_PASSWORD` | The SSH password from the same page |
+| `HOSTINGER_KNOWN_HOSTS` (optional) | Pinned host key; otherwise scanned on first contact |
+
+Each run first backs up the server's current `public_html` to `~/backups/`, removes Hostinger's `default.php`
+parking page, uploads the files, then checks https://lasplebes.com/. Without the secrets the job skips.
+
+### Manual
+1. hPanel → **Websites → lasplebes.com → File Manager**.
+2. Upload the *contents* of `public_html/` (including the hidden `.htaccess`) into the site's `public_html/`
+   and delete Hostinger's `default.php` if present.
 3. hPanel → **Security → SSL**: make sure the free SSL is active, since `.htaccess` redirects everything to `https://lasplebes.com`.
 
 ## Business facts used (researched 2026-09-26)
