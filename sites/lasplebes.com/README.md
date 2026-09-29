@@ -46,7 +46,7 @@ parking page, uploads the files, then checks https://lasplebes.com/. Without the
 | Fact | Value | Sources | Confidence |
 |---|---|---|---|
 | Address | 4326 E Cesar Chavez Blvd, Fresno, CA 93702 | DoorDash, Roadtrippers, Yelp listing title | High |
-| Hours (Cesar Chavez) | Tue–Fri 10am–6pm; Sat–Sun 9am–5pm; Mon closed | Yahoo Local, Roadtrippers; Google profile showed "Closes 6 PM" on a Tuesday | High for Tue; others medium-high |
+| Hours (Cesar Chavez) | Tue–Fri 10am–6pm; Sat–Sun 10am–5pm; Mon closed | Google Business Profile hours panel (screenshot shared by SPREAD, 2026-09-29); older listings said 9am on weekends | High |
 | Menu categories | Cold bar, hot plates, tacos, seafood, Sinaloan antojitos, soups, Clamatasos | Yahoo Local / listing description | Medium-high |
 | Online ordering | DoorDash store 34682316 | DoorDash | High |
 | Phone (Cesar Chavez) | (559) 375-1604 | Google Business Profile (screenshot shared by SPREAD, 2026-09-29) | High |
