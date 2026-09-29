@@ -45,12 +45,11 @@ hidden `.htaccess` and make sure the free SSL certificate is active.
 | Location 2 | 3069 W Ashlan Ave, Fresno, CA 93722 (corner of N Marks Ave) | Google Business Profile (screenshot shared by SPREAD, 2026-09-29) | High |
 | Location 2 hours | Mon–Sat 9:30am–8:30pm; Sun 9:30am–5:30pm | Google Business Profile | High |
 | "4003 N Marks Ave" | Appears on Yelp, Nextdoor and hungryfoody. It is almost certainly the Ashlan location, whose Google pin is at Ashlan & Marks. Not used | Web listings | — |
-| Phones | **Not published.** Neither Google profile screenshot showed a phone number. Listings give Ventura (559) 237-2214 / 424-3343, Ashlan (559) 243-9011, "Marks" (559) 225-2770 / 226-5069 | Yellow Pages, restaurantguru, Nextdoor, hungryfoody, web search | Low: confirm before adding |
+| Phones | Ventura (559) 237-2214; Ashlan (559) 225-2770 | Confirmed by SPREAD, 2026-09-29 (matches Yellow Pages for Ventura and Nextdoor for the Ashlan/"Marks" listing) | High |
 | Menu | Tacos (asada, lengua, chile verde), burritos, breakfast burritos, tamales, enchiladas, quesadillas | Yelp, Nextdoor, restaurantguru, goto-where listing | Medium-high |
 | Price / reservations | $1–10 per person; no reservations | Google Business Profile | High |
 | Online ordering / delivery | None found. Listings say no delivery | restaurantguru | Medium |
 
 ## To confirm with the owner
 
-- Phone number for each location. Then add a `tel:` button to each card, and `telephone` to its JSON-LD entry.
 - Logo, photos, social links, and whether there's an ordering link.
