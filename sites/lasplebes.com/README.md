@@ -48,7 +48,7 @@ parking page, uploads the files, then checks https://lasplebes.com/. Without the
 | Address | 4326 E Cesar Chavez Blvd, Fresno, CA 93702 | DoorDash, Roadtrippers, Yelp listing title | High |
 | Hours (Cesar Chavez) | Tue–Fri 10am–6pm; Sat–Sun 10am–5pm; Mon closed | Google Business Profile hours panel (screenshot shared by SPREAD, 2026-09-29); older listings said 9am on weekends | High |
 | Menu categories | Cold bar, hot plates, tacos, seafood, Sinaloan antojitos, soups, Clamatasos | Yahoo Local / listing description | Medium-high |
-| Online ordering | DoorDash store 34682316 | DoorDash | High |
+| Online ordering | Cesar Chavez only: DoorDash store 34682316. Jensen has no online ordering (confirmed by SPREAD 2026-09-29) | DoorDash; SPREAD | High |
 | Phone (Cesar Chavez) | (559) 375-1604 | Google Business Profile (screenshot shared by SPREAD, 2026-09-29) | High |
 | Second location | 4107 E Jensen Ave, Fresno, CA 93725 (listed online as "Taqueria Las Plebes") | Confirmed by SPREAD 2026-09-29; address on Yelp, Yahoo Local, Yellow Pages | High |
 | Jensen phone | (559) 255-5494 | Google Business Profile (screenshot shared by SPREAD, 2026-09-29); matches Yahoo Local, Yellow Pages, Chamber of Commerce | High |
