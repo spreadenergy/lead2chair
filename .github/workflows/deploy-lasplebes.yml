@@ -1,0 +1,95 @@
+name: Deploy lasplebes.com
+
+# Uploads sites/lasplebes.com/public_html to Hostinger over SSH.
+# Connection details live only in repository secrets (this repo is public):
+#   HOSTINGER_SSH_COMMAND   the "ssh -p <port> <user>@<host>" line copied from hPanel
+#   HOSTINGER_SSH_PASSWORD  the SSH password from hPanel -> Advanced -> SSH Access
+# Optional:
+#   HOSTINGER_KNOWN_HOSTS   pinned host key line; otherwise the key is scanned on first contact
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ["main", "claude/las-plebes-landing-page-w58tnr"]
+    paths:
+      - "sites/lasplebes.com/public_html/**"
+      - ".github/workflows/deploy-lasplebes.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-lasplebes
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      SSH_COMMAND: ${{ secrets.HOSTINGER_SSH_COMMAND }}
+      SSHPASS: ${{ secrets.HOSTINGER_SSH_PASSWORD }}
+      KNOWN_HOSTS: ${{ secrets.HOSTINGER_KNOWN_HOSTS }}
+      REMOTE_DIR: domains/lasplebes.com/public_html
+    steps:
+      - name: Check secrets
+        id: gate
+        run: |
+          if [ -z "$SSH_COMMAND" ] || [ -z "$SSHPASS" ]; then
+            echo "::notice::HOSTINGER_SSH_COMMAND / HOSTINGER_SSH_PASSWORD not set; skipping deploy."
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Check out
+        if: steps.gate.outputs.ready == 'true'
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+
+      - name: Configure SSH
+        if: steps.gate.outputs.ready == 'true'
+        run: |
+          sudo apt-get install -y -qq sshpass >/dev/null
+          # Parse "ssh -p 65002 user@host" (also accepts "user@host" alone).
+          port=$(printf '%s' "$SSH_COMMAND" | sed -nE 's/.*-p[[:space:]]*([0-9]+).*/\1/p')
+          target=$(printf '%s' "$SSH_COMMAND" | grep -oE '[^[:space:]]+@[^[:space:]]+' | head -1)
+          [ -n "$target" ] || { echo "::error::Could not find user@host in HOSTINGER_SSH_COMMAND"; exit 1; }
+          host=${target#*@}
+          echo "::add-mask::$host"
+          echo "::add-mask::${target%@*}"
+          echo "PORT=${port:-22}" >> "$GITHUB_ENV"
+          echo "TARGET=$target" >> "$GITHUB_ENV"
+          mkdir -p ~/.ssh && chmod 700 ~/.ssh
+          if [ -n "$KNOWN_HOSTS" ]; then
+            printf '%s\n' "$KNOWN_HOSTS" > ~/.ssh/known_hosts
+          else
+            ssh-keyscan -p "${port:-22}" "$host" > ~/.ssh/known_hosts 2>/dev/null
+          fi
+          [ -s ~/.ssh/known_hosts ] || { echo "::error::Could not obtain host key"; exit 1; }
+
+      - name: Back up current site and upload
+        if: steps.gate.outputs.ready == 'true'
+        run: |
+          remote() { sshpass -e ssh -p "$PORT" -o BatchMode=no -o StrictHostKeyChecking=yes "$TARGET" "$@"; }
+          remote "test -d $REMOTE_DIR" || {
+            echo "::error::~/$REMOTE_DIR not found on the server. Domains present:"
+            remote 'ls -1 domains 2>/dev/null' || true
+            exit 1
+          }
+          stamp=$(date -u +%Y%m%dT%H%M%SZ)
+          remote "mkdir -p backups && tar -czf backups/lasplebes-public_html-$stamp.tar.gz -C $REMOTE_DIR . && echo backed up to ~/backups/lasplebes-public_html-$stamp.tar.gz"
+          # Hostinger's parking page would otherwise take precedence over index.html.
+          remote "rm -f $REMOTE_DIR/default.php"
+          tar -C sites/lasplebes.com/public_html -cf - . | remote "tar -xf - -C $REMOTE_DIR"
+          remote "ls -la $REMOTE_DIR"
+
+      - name: Verify live site
+        if: steps.gate.outputs.ready == 'true'
+        run: |
+          sleep 5
+          if curl -fsSL --max-time 20 https://lasplebes.com/ | grep -q "Las Plebes Tacos y Mariscos"; then
+            echo "Live: https://lasplebes.com/ serves the new page."
+          else
+            echo "::warning::https://lasplebes.com/ did not return the new page yet (DNS, SSL or cache may still be settling)."
+          fi

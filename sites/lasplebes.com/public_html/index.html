@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>
+    // English is the default. Send visitors whose browser prefers Spanish to /es/,
+    // unless they already picked a language with the switcher.
+    (function () {
+      try {
+        var want = null;
+        try { want = localStorage.getItem("lp-lang"); } catch (e) {}
+        if (!want) {
+          var langs = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || ""];
+          for (var i = 0; i < langs.length; i++) {
+            var p = String(langs[i]).toLowerCase().split("-")[0];
+            if (p === "es" || p === "en") { want = p; break; }
+          }
+        }
+        if (want === "es") location.replace("/es/" + location.search + location.hash);
+      } catch (e) {}
+    })();
+  </script>
+  <title>Las Plebes Tacos y Mariscos · Fresno, CA</title>
+  <meta name="description" content="Las Plebes Tacos y Mariscos — authentic Sinaloa-style tacos and seafood in Fresno, CA. Two locations: Cesar Chavez Blvd and Jensen Ave.">
+  <link rel="canonical" href="https://lasplebes.com/">
+  <link rel="alternate" hreflang="en" href="https://lasplebes.com/">
+  <link rel="alternate" hreflang="es" href="https://lasplebes.com/es/">
+  <link rel="alternate" hreflang="x-default" href="https://lasplebes.com/">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#0b5563">
+
+  <meta property="og:type" content="restaurant">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="es_MX">
+  <meta property="og:title" content="Las Plebes Tacos y Mariscos · Fresno, CA">
+  <meta property="og:description" content="Authentic Sinaloa flavor. Tacos, seafood, antojitos and Clamatasos in Fresno.">
+  <meta property="og:url" content="https://lasplebes.com/">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/site.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Restaurant",
+        "name": "Las Plebes Tacos y Mariscos",
+        "url": "https://lasplebes.com/",
+        "telephone": "+1-559-375-1604",
+        "servesCuisine": ["Mexican", "Seafood", "Sinaloan"],
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "4326 E Cesar Chavez Blvd",
+          "addressLocality": "Fresno",
+          "addressRegion": "CA",
+          "postalCode": "93702",
+          "addressCountry": "US"
+        },
+        "openingHoursSpecification": [
+          { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Tuesday","Wednesday","Thursday","Friday"], "opens": "10:00", "closes": "18:00" },
+          { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Saturday","Sunday"], "opens": "10:00", "closes": "17:00" }
+        ]
+      },
+      {
+        "@type": "Restaurant",
+        "name": "Las Plebes Tacos y Mariscos",
+        "alternateName": "Taqueria Las Plebes",
+        "url": "https://lasplebes.com/",
+        "telephone": "+1-559-255-5494",
+        "openingHoursSpecification": [
+          { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Tuesday","Wednesday","Thursday","Friday"], "opens": "09:30", "closes": "19:00" },
+          { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Saturday","Sunday"], "opens": "08:30", "closes": "17:00" }
+        ],
+        "servesCuisine": ["Mexican", "Seafood", "Sinaloan"],
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "4107 E Jensen Ave",
+          "addressLocality": "Fresno",
+          "addressRegion": "CA",
+          "postalCode": "93725",
+          "addressCountry": "US"
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <header class="hero">
+    <div class="wrap">
+      <div class="topbar">
+        <a class="brand-mini" href="/">LAS PLEBES</a>
+        <div class="topbar-right">
+          <span class="badge">🌊 Fresno, California</span>
+          <a class="lang-switch" href="/es/" hreflang="es" lang="es" data-set-lang="es">Español</a>
+        </div>
+      </div>
+
+      <div class="hero-body">
+        <p class="eyebrow">Authentic Sinaloa flavor</p>
+        <h1>Las Plebes<span>TACOS Y MARISCOS</span></h1>
+        <p class="tagline">Fresh seafood, authentic tacos, Sinaloa-style antojitos and our famous Clamatasos — in a lively, family-friendly spot.</p>
+        <div class="cta">
+          <a class="btn btn-primary" href="https://www.doordash.com/store/las-plebes-tacos-y-mariscos---4326-e-cesar-chavez-blvd-fresno-34682316/" target="_blank" rel="noopener">🛵 Order online</a>
+          <a class="btn btn-ghost" href="#visit">📍 Visit us</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="menu">
+      <div class="wrap">
+        <h2>What we serve</h2>
+        <p class="lead">Fresh Sinaloa-style seafood and authentic favorites, made with bold flavors and fresh ingredients.</p>
+
+        <div class="grid">
+          <article class="card">
+            <div class="icon">🦐</div>
+            <h3>Cold Bar</h3>
+            <p>Seafood cocktails, aguachiles, ceviches and tostadas.</p>
+          </article>
+          <article class="card">
+            <div class="icon">🌮</div>
+            <h3>Tacos</h3>
+            <p>Authentic tacos and seafood tacos on handmade tortillas.</p>
+          </article>
+          <article class="card">
+            <div class="icon">🔥</div>
+            <h3>Hot Plates</h3>
+            <p>Seafood cooked your way, burritos and entrées.</p>
+          </article>
+          <article class="card">
+            <div class="icon">🫓</div>
+            <h3>Sinaloa Antojitos</h3>
+            <p>Vampiros and other Sinaloa classics.</p>
+          </article>
+          <article class="card">
+            <div class="icon">🍲</div>
+            <h3>Caldos</h3>
+            <p>Pozole, menudo, beef soup and chicken soup.</p>
+          </article>
+          <article class="card">
+            <div class="icon">🍹</div>
+            <h3>Clamatasos</h3>
+            <p>Our house specialty. You have to try them!</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="visit" class="visit">
+      <div class="wrap">
+        <h2>Visit us</h2>
+        <p class="lead">Two locations in Fresno. Come hungry — we'll take care of the rest.</p>
+
+        <div class="locations">
+          <div class="loc info">
+            <h3 class="loc-name">Cesar Chavez Blvd</h3>
+            <address>
+              4326 E Cesar Chavez Blvd<br>
+              Fresno, CA 93702
+            </address>
+            <p class="gmb"><a href="https://share.google/KI7W0AtM8IcCTdLG8" target="_blank" rel="noopener">View on Google →</a></p>
+
+            <h3>Hours</h3>
+            <div class="status" aria-live="polite"></div>
+            <table class="hours" id="hours-chavez" data-hours='{"0":[10,17],"1":null,"2":[10,18],"3":[10,18],"4":[10,18],"5":[10,18],"6":[10,17]}' aria-label="Hours, Cesar Chavez Blvd">
+              <tbody>
+                <tr data-day="1" class="closed"><td>Monday</td><td>Closed</td></tr>
+                <tr data-day="2"><td>Tuesday</td><td>10:00 AM – 6:00 PM</td></tr>
+                <tr data-day="3"><td>Wednesday</td><td>10:00 AM – 6:00 PM</td></tr>
+                <tr data-day="4"><td>Thursday</td><td>10:00 AM – 6:00 PM</td></tr>
+                <tr data-day="5"><td>Friday</td><td>10:00 AM – 6:00 PM</td></tr>
+                <tr data-day="6"><td>Saturday</td><td>10:00 AM – 5:00 PM</td></tr>
+                <tr data-day="0"><td>Sunday</td><td>10:00 AM – 5:00 PM</td></tr>
+              </tbody>
+            </table>
+
+            <div class="cta">
+              <a class="btn btn-dark" href="https://www.google.com/maps/dir/?api=1&amp;destination=4326+E+Cesar+Chavez+Blvd,+Fresno,+CA+93702" target="_blank" rel="noopener">🧭 Get directions</a>
+              <a class="btn btn-primary" href="tel:+15593751604">📞 (559) 375-1604</a>
+            </div>
+
+            <iframe
+              class="map"
+              title="Map: Las Plebes Tacos y Mariscos, 4326 E Cesar Chavez Blvd, Fresno"
+              src="https://www.google.com/maps?q=4326+E+Cesar+Chavez+Blvd,+Fresno,+CA+93702&amp;hl=en&amp;output=embed"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+
+          <div class="loc info">
+            <h3 class="loc-name">Jensen Ave</h3>
+            <address>
+              4107 E Jensen Ave<br>
+              Fresno, CA 93725
+            </address>
+            <p class="gmb"><a href="https://share.google/khoyFMLg5myATaUqZ" target="_blank" rel="noopener">View on Google →</a></p>
+
+            <h3>Hours</h3>
+            <div class="status" aria-live="polite"></div>
+            <table class="hours" id="hours-jensen" data-hours='{"0":[8.5,17],"1":null,"2":[9.5,19],"3":[9.5,19],"4":[9.5,19],"5":[9.5,19],"6":[8.5,17]}' aria-label="Hours, Jensen Ave">
+              <tbody>
+                <tr data-day="1" class="closed"><td>Monday</td><td>Closed</td></tr>
+                <tr data-day="2"><td>Tuesday</td><td>9:30 AM – 7:00 PM</td></tr>
+                <tr data-day="3"><td>Wednesday</td><td>9:30 AM – 7:00 PM</td></tr>
+                <tr data-day="4"><td>Thursday</td><td>9:30 AM – 7:00 PM</td></tr>
+                <tr data-day="5"><td>Friday</td><td>9:30 AM – 7:00 PM</td></tr>
+                <tr data-day="6"><td>Saturday</td><td>8:30 AM – 5:00 PM</td></tr>
+                <tr data-day="0"><td>Sunday</td><td>8:30 AM – 5:00 PM</td></tr>
+              </tbody>
+            </table>
+
+            <div class="cta">
+              <a class="btn btn-dark" href="https://www.google.com/maps/dir/?api=1&amp;destination=4107+E+Jensen+Ave,+Fresno,+CA+93725" target="_blank" rel="noopener">🧭 Get directions</a>
+              <a class="btn btn-primary" href="tel:+15592555494">📞 (559) 255-5494</a>
+            </div>
+
+            <iframe
+              class="map"
+              title="Map: Las Plebes, 4107 E Jensen Ave, Fresno"
+              src="https://www.google.com/maps?q=4107+E+Jensen+Ave,+Fresno,+CA+93725&amp;hl=en&amp;output=embed"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="soon">
+        <h2>Coming soon!</h2>
+        <p>Our full website with menu and prices is on the way. In the meantime, come visit us or order online.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <p>© <span id="year">2026</span> Las Plebes Tacos y Mariscos · Fresno, California</p>
+    </div>
+  </footer>
+
+  <script src="/assets/site.js"></script>
+</body>
+</html>
