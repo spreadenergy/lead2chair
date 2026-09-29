@@ -22,7 +22,7 @@
     })();
   </script>
   <title>Al's Ricos Tacos · Fresno, CA</title>
-  <meta name="description" content="Al's Ricos Tacos — tacos, burritos, tamales and breakfast in Fresno, CA. Two locations: Ventura and Marks Ave.">
+  <meta name="description" content="Al's Ricos Tacos — tacos, burritos, tamales and breakfast in Fresno, CA. Two locations: Ventura Ave and Ashlan Ave.">
   <link rel="canonical" href="https://alsricos.com/">
   <link rel="alternate" hreflang="en" href="https://alsricos.com/">
   <link rel="alternate" hreflang="es" href="https://alsricos.com/es/">
@@ -52,9 +52,12 @@
         "url": "https://alsricos.com/",
         "servesCuisine": ["Mexican"],
         "priceRange": "$",
+        "openingHoursSpecification": [
+          { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"], "opens": "09:00", "closes": "20:00" }
+        ],
         "address": {
           "@type": "PostalAddress",
-          "streetAddress": "2950 Ventura St",
+          "streetAddress": "2950 Ventura Ave",
           "addressLocality": "Fresno",
           "addressRegion": "CA",
           "postalCode": "93721",
@@ -67,9 +70,13 @@
         "url": "https://alsricos.com/",
         "servesCuisine": ["Mexican"],
         "priceRange": "$",
+        "openingHoursSpecification": [
+          { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"], "opens": "09:30", "closes": "20:30" },
+          { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Sunday"], "opens": "09:30", "closes": "17:30" }
+        ],
         "address": {
           "@type": "PostalAddress",
-          "streetAddress": "4003 N Marks Ave",
+          "streetAddress": "3069 W Ashlan Ave",
           "addressLocality": "Fresno",
           "addressRegion": "CA",
           "postalCode": "93722",
@@ -152,41 +159,69 @@
 
         <div class="locations">
           <div class="loc info">
-            <h3 class="loc-name">Ventura</h3>
+            <h3 class="loc-name">Ventura Ave</h3>
             <address>
-              2950 Ventura St<br>
+              2950 Ventura Ave<br>
               Fresno, CA 93721
             </address>
-            <p class="gmb"><a href="https://www.google.com/maps/search/?api=1&amp;query=Al%27s+Ricos+Tacos+2950+Ventura+St+Fresno+CA+93721" target="_blank" rel="noopener">See hours on Google Maps →</a></p>
+            <p class="gmb"><a href="https://www.google.com/maps/search/?api=1&amp;query=Al%27s+Ricos+Tacos+2950+Ventura+Ave+Fresno+CA+93721" target="_blank" rel="noopener">View on Google Maps →</a></p>
+
+            <h3>Hours</h3>
+            <div class="status" aria-live="polite"></div>
+            <table class="hours" id="hours-ventura" data-hours='{"0":[9,20],"1":[9,20],"2":[9,20],"3":[9,20],"4":[9,20],"5":[9,20],"6":[9,20]}' aria-label="Hours, Ventura Ave">
+              <tbody>
+                <tr data-day="1"><td>Monday</td><td>9:00 AM – 8:00 PM</td></tr>
+                <tr data-day="2"><td>Tuesday</td><td>9:00 AM – 8:00 PM</td></tr>
+                <tr data-day="3"><td>Wednesday</td><td>9:00 AM – 8:00 PM</td></tr>
+                <tr data-day="4"><td>Thursday</td><td>9:00 AM – 8:00 PM</td></tr>
+                <tr data-day="5"><td>Friday</td><td>9:00 AM – 8:00 PM</td></tr>
+                <tr data-day="6"><td>Saturday</td><td>9:00 AM – 8:00 PM</td></tr>
+                <tr data-day="0"><td>Sunday</td><td>9:00 AM – 8:00 PM</td></tr>
+              </tbody>
+            </table>
 
             <div class="cta">
-              <a class="btn btn-dark" href="https://www.google.com/maps/dir/?api=1&amp;destination=2950+Ventura+St,+Fresno,+CA+93721" target="_blank" rel="noopener">🧭 Get directions</a>
+              <a class="btn btn-dark" href="https://www.google.com/maps/dir/?api=1&amp;destination=2950+Ventura+Ave,+Fresno,+CA+93721" target="_blank" rel="noopener">🧭 Get directions</a>
             </div>
 
             <iframe
               class="map"
-              title="Map: Al's Ricos Tacos, 2950 Ventura St, Fresno"
-              src="https://www.google.com/maps?q=2950+Ventura+St,+Fresno,+CA+93721&amp;hl=en&amp;output=embed"
+              title="Map: Al's Ricos Tacos, 2950 Ventura Ave, Fresno"
+              src="https://www.google.com/maps?q=2950+Ventura+Ave,+Fresno,+CA+93721&amp;hl=en&amp;output=embed"
               loading="lazy"
               referrerpolicy="no-referrer-when-downgrade"></iframe>
           </div>
 
           <div class="loc info">
-            <h3 class="loc-name">Marks Ave</h3>
+            <h3 class="loc-name">Ashlan Ave</h3>
             <address>
-              4003 N Marks Ave<br>
+              3069 W Ashlan Ave<br>
               Fresno, CA 93722
             </address>
-            <p class="gmb"><a href="https://www.google.com/maps/search/?api=1&amp;query=Al%27s+Ricos+Tacos+4003+N+Marks+Ave+Fresno+CA+93722" target="_blank" rel="noopener">See hours on Google Maps →</a></p>
+            <p class="gmb"><a href="https://www.google.com/maps/search/?api=1&amp;query=Al%27s+Ricos+Tacos+3069+W+Ashlan+Ave+Fresno+CA+93722" target="_blank" rel="noopener">View on Google Maps →</a></p>
+
+            <h3>Hours</h3>
+            <div class="status" aria-live="polite"></div>
+            <table class="hours" id="hours-ashlan" data-hours='{"0":[9.5,17.5],"1":[9.5,20.5],"2":[9.5,20.5],"3":[9.5,20.5],"4":[9.5,20.5],"5":[9.5,20.5],"6":[9.5,20.5]}' aria-label="Hours, Ashlan Ave">
+              <tbody>
+                <tr data-day="1"><td>Monday</td><td>9:30 AM – 8:30 PM</td></tr>
+                <tr data-day="2"><td>Tuesday</td><td>9:30 AM – 8:30 PM</td></tr>
+                <tr data-day="3"><td>Wednesday</td><td>9:30 AM – 8:30 PM</td></tr>
+                <tr data-day="4"><td>Thursday</td><td>9:30 AM – 8:30 PM</td></tr>
+                <tr data-day="5"><td>Friday</td><td>9:30 AM – 8:30 PM</td></tr>
+                <tr data-day="6"><td>Saturday</td><td>9:30 AM – 8:30 PM</td></tr>
+                <tr data-day="0"><td>Sunday</td><td>9:30 AM – 5:30 PM</td></tr>
+              </tbody>
+            </table>
 
             <div class="cta">
-              <a class="btn btn-dark" href="https://www.google.com/maps/dir/?api=1&amp;destination=4003+N+Marks+Ave,+Fresno,+CA+93722" target="_blank" rel="noopener">🧭 Get directions</a>
+              <a class="btn btn-dark" href="https://www.google.com/maps/dir/?api=1&amp;destination=3069+W+Ashlan+Ave,+Fresno,+CA+93722" target="_blank" rel="noopener">🧭 Get directions</a>
             </div>
 
             <iframe
               class="map"
-              title="Map: Al's Ricos Tacos, 4003 N Marks Ave, Fresno"
-              src="https://www.google.com/maps?q=4003+N+Marks+Ave,+Fresno,+CA+93722&amp;hl=en&amp;output=embed"
+              title="Map: Al's Ricos Tacos, 3069 W Ashlan Ave, Fresno"
+              src="https://www.google.com/maps?q=3069+W+Ashlan+Ave,+Fresno,+CA+93722&amp;hl=en&amp;output=embed"
               loading="lazy"
               referrerpolicy="no-referrer-when-downgrade"></iframe>
           </div>

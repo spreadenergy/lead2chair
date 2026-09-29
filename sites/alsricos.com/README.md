@@ -22,12 +22,11 @@ shared.
 
 When changing copy, edit **both** pages.
 
-**Adding hours to a location** (in both pages):
+**Hours:**
 
-1. Replace the "See hours on Google Maps" line with a status `div` followed by a
-   `<table class="hours" data-hours='{"0":[open,close],...}'>`. Copy the markup from `sites/lasplebes.com`. `site.js`
-   then shows an open/closed badge for that location automatically.
-2. Add `openingHoursSpecification` and `telephone` to that location's JSON-LD entry.
+Each location card has a status `div` followed by a `<table class="hours" data-hours='{"0":[open,close],...}'>`.
+The `data-hours` values are decimal hours; 0 is Sunday. `site.js` uses them for that location's open/closed badge.
+When hours change, update the visible rows, `data-hours` and the JSON-LD `openingHoursSpecification` on **both** pages.
 
 ## Deploy (Hostinger)
 
@@ -41,16 +40,17 @@ hidden `.htaccess` and make sure the free SSL certificate is active.
 
 | Fact | Value | Sources | Confidence |
 |---|---|---|---|
-| Location 1 | 2950 Ventura St, Fresno, CA 93721 | Yelp, Yellow Pages (restaurantguru says "Ventura Ave") | High for the location; confirm "St" vs "Ave" |
-| Location 2 | 4003 N Marks Ave, Fresno, CA 93722 | Yelp, Nextdoor, hungryfoody | High |
-| Phones | **Not published.** Ventura: (559) 237-2214 / 424-3343. Marks: (559) 225-2770 / 226-5069 | Yellow Pages, restaurantguru, Nextdoor, hungryfoody | Low: sources conflict |
-| Hours | **Not published.** Sources conflict: Ventura 8:30–9:30 daily vs 9–8 daily vs 10–8; Marks 9–8:30 vs 8:30–10 vs 11–10 | Same as above | Low |
+| Location 1 | 2950 Ventura Ave, Fresno, CA 93721 | Google Business Profile (screenshot shared by SPREAD, 2026-09-29); some listings say "Ventura St" | High |
+| Location 1 hours | Every day 9am–8pm | Google Business Profile | High |
+| Location 2 | 3069 W Ashlan Ave, Fresno, CA 93722 (corner of N Marks Ave) | Google Business Profile (screenshot shared by SPREAD, 2026-09-29) | High |
+| Location 2 hours | Mon–Sat 9:30am–8:30pm; Sun 9:30am–5:30pm | Google Business Profile | High |
+| "4003 N Marks Ave" | Appears on Yelp, Nextdoor and hungryfoody. It is almost certainly the Ashlan location, whose Google pin is at Ashlan & Marks. Not used | Web listings | — |
+| Phones | **Not published.** Neither Google profile screenshot showed a phone number. Listings give Ventura (559) 237-2214 / 424-3343, Ashlan (559) 243-9011, "Marks" (559) 225-2770 / 226-5069 | Yellow Pages, restaurantguru, Nextdoor, hungryfoody, web search | Low: confirm before adding |
 | Menu | Tacos (asada, lengua, chile verde), burritos, breakfast burritos, tamales, enchiladas, quesadillas | Yelp, Nextdoor, restaurantguru, goto-where listing | Medium-high |
+| Price / reservations | $1–10 per person; no reservations | Google Business Profile | High |
 | Online ordering / delivery | None found. Listings say no delivery | restaurantguru | Medium |
-| Other address | 3069 W Ashlan Ave (phone (559) 243-9011) appears in older listings. SPREAD says there are two locations, so it is not shown | Web search | Treat as closed unless the owner says otherwise |
 
 ## To confirm with the owner
 
-- Phone and hours for each location. Google Business Profile screenshots of the hours panel work well.
-- "Ventura St" vs "Ventura Ave".
+- Phone number for each location. Then add a `tel:` button to each card, and `telephone` to its JSON-LD entry.
 - Logo, photos, social links, and whether there's an ordering link.
