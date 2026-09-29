@@ -46,17 +46,16 @@ parking page, uploads the files, then checks https://lasplebes.com/. Without the
 | Fact | Value | Sources | Confidence |
 |---|---|---|---|
 | Address | 4326 E Cesar Chavez Blvd, Fresno, CA 93702 | DoorDash, Roadtrippers, Yelp listing title | High |
-| Hours | Tue–Fri 10am–6pm; Sat–Sun 9am–5pm; Mon closed | Yahoo Local, Roadtrippers | Medium-high (confirm with owner) |
+| Hours (Cesar Chavez) | Tue–Fri 10am–6pm; Sat–Sun 9am–5pm; Mon closed | Yahoo Local, Roadtrippers; Google profile showed "Closes 6 PM" on a Tuesday | High for Tue; others medium-high |
 | Menu categories | Cold bar, hot plates, tacos, seafood, Sinaloan antojitos, soups, Clamatasos | Yahoo Local / listing description | Medium-high |
 | Online ordering | DoorDash store 34682316 | DoorDash | High |
-| Phone (Cesar Chavez) | **Not published** — only one listing gave (559) 252-2133 and it also had the wrong street direction | Yahoo Local | Low — confirm before enabling |
+| Phone (Cesar Chavez) | (559) 375-1604 | Google Business Profile (screenshot shared by SPREAD, 2026-09-29) | High |
 | Second location | 4107 E Jensen Ave, Fresno, CA 93725 (listed online as "Taqueria Las Plebes") | Confirmed by SPREAD 2026-09-29; address on Yelp, Yahoo Local, Yellow Pages | High |
 | Jensen phone | (559) 255-5494 | Yahoo Local, Yellow Pages, Chamber of Commerce, gotoeat listing (all agree) | Medium-high |
 | Jensen hours | **Not published** — sources conflict (Tue–Fri 8:30–6 / Sat–Sun 8:30–5 vs. 9–10 daily) | gotoeat listing, Yahoo Local | Low — confirm with owner |
 
 ## To confirm with the owner before/after launch
 
-- Cesar Chavez phone number → uncomment the `tel:` button in both pages (search for "Enable once the phone number").
 - Cesar Chavez hours live in the hours table and the JSON-LD block of **both** pages, and in `assets/site.js` — keep all five in sync.
 - Jensen Ave hours → replace the "call for current hours" note in both pages, and add `openingHoursSpecification` to its JSON-LD entry.
 - Logo, photos, social links, and whether DoorDash is the preferred ordering link.
