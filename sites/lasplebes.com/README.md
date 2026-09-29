@@ -51,8 +51,8 @@ parking page, uploads the files, then checks https://lasplebes.com/. Without the
 | Online ordering | DoorDash store 34682316 | DoorDash | High |
 | Phone (Cesar Chavez) | (559) 375-1604 | Google Business Profile (screenshot shared by SPREAD, 2026-09-29) | High |
 | Second location | 4107 E Jensen Ave, Fresno, CA 93725 (listed online as "Taqueria Las Plebes") | Confirmed by SPREAD 2026-09-29; address on Yelp, Yahoo Local, Yellow Pages | High |
-| Jensen phone | (559) 255-5494 | Yahoo Local, Yellow Pages, Chamber of Commerce, gotoeat listing (all agree) | Medium-high |
-| Jensen hours | **Not published** — sources conflict (Tue–Fri 8:30–6 / Sat–Sun 8:30–5 vs. 9–10 daily) | gotoeat listing, Yahoo Local | Low — confirm with owner |
+| Jensen phone | (559) 255-5494 | Google Business Profile (screenshot shared by SPREAD, 2026-09-29); matches Yahoo Local, Yellow Pages, Chamber of Commerce | High |
+| Jensen hours | **Not published.** Google showed Tuesday closing at 7 PM (takeout until 6 PM), which matches neither third-party listing (Tue–Fri 8:30–6 / Sat–Sun 8:30–5; 9–10 daily) | Google Business Profile, gotoeat listing, Yahoo Local | Only Tuesday confirmed; get the full week from the Google profile's hours dropdown |
 
 ## To confirm with the owner before/after launch
 
