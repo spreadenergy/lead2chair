@@ -10,9 +10,9 @@
     });
   }
 
-  // Cesar Chavez hours: highlight today and show open/closed in Fresno time (America/Los_Angeles).
-  // Keep in sync with the hours tables and JSON-LD in index.html and es/index.html.
-  var hours = { 0: [9, 17], 1: null, 2: [10, 18], 3: [10, 18], 4: [10, 18], 5: [10, 18], 6: [9, 17] };
+  // For each location: highlight today's row and show open/closed in Fresno time (America/Los_Angeles).
+  // Hours come from the table's data-hours ({day: [open, close] in decimal hours, or null}); keep them
+  // in sync with the visible rows and the JSON-LD in index.html and es/index.html.
   var now;
   try {
     now = new Date(new Date().toLocaleString("en-US", { timeZone: "America/Los_Angeles" }));
@@ -21,11 +21,14 @@
   }
   var day = now.getDay();
   var h = now.getHours() + now.getMinutes() / 60;
-  var row = document.querySelector('#hours-chavez tr[data-day="' + day + '"]');
-  if (row) row.classList.add("today");
-
-  var el = document.getElementById("status");
-  if (el) {
+  var tables = document.querySelectorAll("table.hours[data-hours]");
+  for (var t = 0; t < tables.length; t++) {
+    var table = tables[t], hours;
+    try { hours = JSON.parse(table.getAttribute("data-hours")); } catch (e) { continue; }
+    var row = table.querySelector('tr[data-day="' + day + '"]');
+    if (row) row.classList.add("today");
+    var el = table.previousElementSibling;
+    if (!el || !el.classList.contains("status")) continue;
     var today = hours[day];
     if (today && h >= today[0] && h < today[1]) {
       el.textContent = es ? "● Abierto ahora" : "● Open now";

@@ -99,8 +99,7 @@ h2 { font-family: "Bowlby One", Impact, sans-serif; font-weight: 400; font-size:
 .info h3 { margin: 0 0 6px; font-size: .8rem; text-transform: uppercase; letter-spacing: 2px; color: var(--chile); }
 .info address { font-style: normal; font-size: 1.1rem; font-weight: 600; margin-bottom: 6px; }
 .info .gmb { margin: 0 0 18px; font-size: .9rem; font-weight: 600; }
-.info .gmb a, .info .note a { color: var(--ocean); }
-.info .note { margin: 0 0 18px; color: var(--muted); }
+.info .gmb a { color: var(--ocean); }
 table.hours { border-collapse: collapse; width: 100%; max-width: 360px; margin-bottom: 22px; }
 table.hours td { padding: 8px 0; border-bottom: 1px dashed #d9dfe2; }
 table.hours td:last-child { text-align: right; font-weight: 600; }

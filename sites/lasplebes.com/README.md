@@ -9,7 +9,7 @@ No build step, no dependencies beyond Google Fonts and Google Maps embeds.
 |---|---|
 | `public_html/index.html` | English page, the default (`/`) |
 | `public_html/es/index.html` | Spanish page (`/es/`) |
-| `public_html/assets/site.css`, `site.js` | Shared styles; language-choice memory, open/closed badge and year |
+| `public_html/assets/site.css`, `site.js` | Shared styles; language-choice memory, per-location open/closed badges and year |
 
 A small inline script at the top of the English page sends a visitor to `/es/` when the first English or Spanish
 entry in their browser's language list (`navigator.languages`) is Spanish. Other languages, no JavaScript and crawlers
@@ -52,10 +52,9 @@ parking page, uploads the files, then checks https://lasplebes.com/. Without the
 | Phone (Cesar Chavez) | (559) 375-1604 | Google Business Profile (screenshot shared by SPREAD, 2026-09-29) | High |
 | Second location | 4107 E Jensen Ave, Fresno, CA 93725 (listed online as "Taqueria Las Plebes") | Confirmed by SPREAD 2026-09-29; address on Yelp, Yahoo Local, Yellow Pages | High |
 | Jensen phone | (559) 255-5494 | Google Business Profile (screenshot shared by SPREAD, 2026-09-29); matches Yahoo Local, Yellow Pages, Chamber of Commerce | High |
-| Jensen hours | **Not published.** Google showed Tuesday closing at 7 PM (takeout until 6 PM), which matches neither third-party listing (Tue–Fri 8:30–6 / Sat–Sun 8:30–5; 9–10 daily) | Google Business Profile, gotoeat listing, Yahoo Local | Only Tuesday confirmed; get the full week from the Google profile's hours dropdown |
+| Jensen hours | Tue–Fri 9:30am–7pm; Sat–Sun 8:30am–5pm; Mon closed (takeout listed as 9am–6pm) | Google Business Profile hours panel (screenshot shared by SPREAD, 2026-09-29) | High |
 
 ## To confirm with the owner before/after launch
 
-- Cesar Chavez hours live in the hours table and the JSON-LD block of **both** pages, and in `assets/site.js` — keep all five in sync.
-- Jensen Ave hours → replace the "call for current hours" note in both pages, and add `openingHoursSpecification` to its JSON-LD entry.
+- Each location's hours appear three times per page, and there are two pages. They are the visible table rows, the table's `data-hours` attribute (which drives the open/closed badge in `assets/site.js`) and the JSON-LD `openingHoursSpecification`. Keep all of them in sync.
 - Logo, photos, social links, and whether DoorDash is the preferred ordering link.
