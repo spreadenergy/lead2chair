@@ -124,11 +124,11 @@ h2 { font-family: "Montserrat", "Inter", sans-serif; font-weight: 800; font-size
 .visit-grid { display: grid; gap: 28px; grid-template-columns: 1fr 1fr; align-items: start; }
 .info h3 { margin: 0 0 6px; font-size: .8rem; text-transform: uppercase; letter-spacing: 2px; color: var(--gold); }
 .info address { font-style: normal; font-size: 1.15rem; font-weight: 600; margin-bottom: 18px; }
-table.hours { border-collapse: collapse; width: 100%; max-width: 380px; margin-bottom: 8px; }
+table.hours { border-collapse: collapse; width: 100%; max-width: 380px; margin-bottom: 22px; }
 table.hours td { padding: 8px 0; border-bottom: 1px dashed rgba(255,255,255,.2); }
 table.hours td:last-child { text-align: right; font-weight: 600; }
 table.hours tr.today td { color: var(--gold-soft); }
-.last-wash { font-size: .9rem; color: rgba(255,255,255,.8); margin: 0 0 22px; }
+.plaza { margin: -10px 0 18px; font-size: .92rem; color: rgba(255,255,255,.8); }
 .status { display: inline-block; margin-bottom: 12px; font-weight: 700; font-size: .92rem; }
 .status.open { color: #7ee2a8; }
 .status.shut { color: #ffb4a6; }
