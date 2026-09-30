@@ -57,7 +57,22 @@ Photos showing identifiable customers or children (for example #41, #46, #52–5
 | House rules | Summarized from the bilingual "Rules & Policies" sign | Album photo #39 | High |
 | Domain | goldstarlaundry.com: registered 2019, Google Cloud DNS, currently returns a 404 (it points at Google Sites IPs) | DNS/RDAP lookup, 2026-09-30 | High |
 
+## Hosting and DNS
+
+The site is hosted on Hostinger (same account as the other sites) and was deployed there on 2026-09-30. The domain's
+DNS stays at Google because **the domain's email runs on Google Workspace** (MX `aspmx.l.google.com`, SPF
+`include:_spf.google.com`). Do **not** switch the nameservers to Hostinger, or email will break. Change only the
+website records instead:
+
+| Record | Change |
+|---|---|
+| `@` A | Replace the four Google Sites IPs (216.239.32/34/36/38.21) with `194.163.47.253` |
+| `www` | Add a CNAME to `goldstarlaundry.com` (or an A record to `194.163.47.253`) |
+| MX, TXT | Leave unchanged |
+
+After DNS propagates, make sure the free SSL certificate is active in hPanel (Websites → goldstarlaundry.com →
+Security → SSL).
+
 ## To confirm with the owner
 
 - Whether they offer wash-and-fold or drop-off service. None was found online, so the page doesn't mention it.
-- Where the site should be hosted. The domain's DNS is at Google, not Hostinger.
