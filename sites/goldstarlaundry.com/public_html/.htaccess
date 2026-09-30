@@ -1,0 +1,7 @@
+# Hostinger (LiteSpeed/Apache): force HTTPS and the bare domain.
+RewriteEngine On
+RewriteCond %{HTTPS} off [OR]
+RewriteCond %{HTTP_HOST} ^www\. [NC]
+RewriteRule ^ https://goldstarlaundry.com%{REQUEST_URI} [L,R=301]
+
+DirectoryIndex index.html

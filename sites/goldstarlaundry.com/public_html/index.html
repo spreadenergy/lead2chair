@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>
+    // English is the default. Send visitors whose browser prefers Spanish to /es/,
+    // unless they already picked a language with the switcher.
+    (function () {
+      try {
+        var want = null;
+        try { want = localStorage.getItem("gs-lang"); } catch (e) {}
+        if (!want) {
+          var langs = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || ""];
+          for (var i = 0; i < langs.length; i++) {
+            var p = String(langs[i]).toLowerCase().split("-")[0];
+            if (p === "es" || p === "en") { want = p; break; }
+          }
+        }
+        if (want === "es") location.replace("/es/" + location.search + location.hash);
+      } catch (e) {}
+    })();
+  </script>
+  <title>Goldstar Laundry · Laundromat in Los Angeles</title>
+  <meta name="description" content="Goldstar Laundry — a clean, modern self-service laundromat at 2711 S Western Ave, Los Angeles. Big-capacity washers, pay with your phone, free WiFi. Open 7 days from 6 AM.">
+  <link rel="canonical" href="https://goldstarlaundry.com/">
+  <link rel="alternate" hreflang="en" href="https://goldstarlaundry.com/">
+  <link rel="alternate" hreflang="es" href="https://goldstarlaundry.com/es/">
+  <link rel="alternate" hreflang="x-default" href="https://goldstarlaundry.com/">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#0f2e21">
+
+  <meta property="og:type" content="business.business">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="es_MX">
+  <meta property="og:title" content="Goldstar Laundry · Laundromat in Los Angeles">
+  <meta property="og:description" content="Clean, modern self-service laundromat on S Western Ave. Big washers, pay with your phone, free WiFi.">
+  <meta property="og:url" content="https://goldstarlaundry.com/">
+  <meta property="og:image" content="https://goldstarlaundry.com/img/storefront.jpg">
+
+  <link rel="preload" as="image" href="/img/storefront.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/site.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "DryCleaningOrLaundry",
+    "name": "Goldstar Laundry",
+    "alternateName": ["Gold Star Laundry", "Goldstar Laundry Laundromat Lavanderia"],
+    "url": "https://goldstarlaundry.com/",
+    "image": "https://goldstarlaundry.com/img/storefront.jpg",
+    "telephone": "+1-323-840-3348",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "2711 S Western Ave",
+      "addressLocality": "Los Angeles",
+      "addressRegion": "CA",
+      "postalCode": "90018",
+      "addressCountry": "US"
+    },
+    "openingHoursSpecification": [
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday"], "opens": "06:00", "closes": "21:00" },
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Friday","Saturday","Sunday"], "opens": "06:00", "closes": "22:00" }
+    ],
+    "amenityFeature": [
+      { "@type": "LocationFeatureSpecification", "name": "Free WiFi for customers", "value": true },
+      { "@type": "LocationFeatureSpecification", "name": "Restroom for customers", "value": true }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <header class="hero">
+    <div class="wrap topbar">
+      <a class="brand-mini" href="/">GOLD<span class="star">★</span>STAR LAUNDRY</a>
+      <div class="topbar-right">
+        <span class="badge">📍 S Western Ave · Los Angeles</span>
+        <a class="lang-switch" href="/es/" hreflang="es" lang="es" data-set-lang="es">Español</a>
+      </div>
+    </div>
+
+    <div class="wrap hero-body">
+      <p class="eyebrow">Laundromat · Lavandería</p>
+      <h1>Gold<span class="star">★</span>star<span class="sub">LAUNDRY</span></h1>
+      <p class="tagline">A clean, bright, modern laundromat with big-capacity washers, fast dryers and free WiFi. Pay with coins or your phone.</p>
+      <p id="hero-status" class="hero-status" aria-live="polite"></p>
+      <div class="cta">
+        <a class="btn btn-primary" href="https://www.google.com/maps/dir/?api=1&amp;destination=Goldstar+Laundry,+2711+S+Western+Ave,+Los+Angeles,+CA+90018" target="_blank" rel="noopener">🧭 Get directions</a>
+        <a class="btn btn-ghost" href="tel:+13238403348">📞 (323) 840-3348</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="why">
+      <div class="wrap">
+        <h2>Laundry day, made easy</h2>
+        <p class="lead">Everything you need to get in, get it done and get on with your day.</p>
+
+        <div class="features">
+          <article class="feature">
+            <div class="icon">🧺</div>
+            <h3>Big-capacity washers</h3>
+            <p>Front-loaders up to 80 lb — that's 8 loads at once. Perfect for comforters and family laundry.</p>
+          </article>
+          <article class="feature">
+            <div class="icon">📱</div>
+            <h3>Pay with your phone</h3>
+            <p>Use the PayRange app on any machine, or pay with coins. A change machine is on site.</p>
+          </article>
+          <article class="feature">
+            <div class="icon">📶</div>
+            <h3>Free WiFi &amp; restroom</h3>
+            <p>Stay connected while you wait. WiFi and restroom are for customers.</p>
+          </article>
+          <article class="feature">
+            <div class="icon">🥤</div>
+            <h3>Snacks &amp; supplies</h3>
+            <p>Drinks, snacks and laundry supplies available — no need to bring everything from home.</p>
+          </article>
+          <article class="feature">
+            <div class="icon">🌀</div>
+            <h3>Rows of dryers</h3>
+            <p>A full wall of stacked dryers, so you're rarely waiting for one to free up.</p>
+          </article>
+          <article class="feature">
+            <div class="icon">🛡️</div>
+            <h3>Clean &amp; safe</h3>
+            <p>Bright, well-kept space with folding tables and security cameras.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="inside" class="gallery-sec">
+      <div class="wrap">
+        <h2>Take a look inside</h2>
+        <p class="lead">Modern machines, lots of space and room to fold.</p>
+
+        <div class="gallery">
+          <figure class="wide tall"><img src="/img/dryers.jpg" alt="A long wall of stainless steel stacked dryers" loading="lazy" width="1200" height="675"><figcaption>A full wall of dryers</figcaption></figure>
+          <figure class="wide"><img src="/img/washer-aisle.jpg" alt="An aisle lined with large front-loading washers" loading="lazy" width="1200" height="900"><figcaption>Big front-loading washers</figcaption></figure>
+          <figure><img src="/img/washers-plant.jpg" alt="Row of large washers" loading="lazy" width="1200" height="675"><figcaption>60 lb &amp; 80 lb washers</figcaption></figure>
+          <figure><img src="/img/touchscreen.jpg" alt="Touchscreen control panel on a washer" loading="lazy" width="1200" height="675"><figcaption>Touchscreen machines</figcaption></figure>
+          <figure class="wide"><img src="/img/washers.jpg" alt="Washers by the front windows" loading="lazy" width="1200" height="675"><figcaption>Bright and spacious</figcaption></figure>
+          <figure><img src="/img/drum.jpg" alt="Inside the drum of a clean washer" loading="lazy" width="1200" height="675"><figcaption>Clean, well-kept machines</figcaption></figure>
+          <figure><img src="/img/top-loaders.jpg" alt="Row of top-loading washers" loading="lazy" width="1200" height="675"><figcaption>Top-loaders too</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <section id="pay">
+      <div class="wrap split">
+        <img class="portrait" src="/img/payrange.jpg" alt="PayRange 'Pay with your phone' sticker on a washer" loading="lazy" width="900" height="1601">
+        <div>
+          <h2>Pay with your phone</h2>
+          <p class="lead">No quarters? No problem. Every machine takes PayRange.</p>
+          <ol class="steps">
+            <li>Download the PayRange app</li>
+            <li>Sign up and add funds</li>
+            <li>Scan the QR code or pick the machine number</li>
+            <li>Start your wash — watch for in-app offers and discounts</li>
+          </ol>
+          <p class="note">Prefer cash? Coins work too, and there's a change machine inside.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="visit" class="visit">
+      <div class="wrap">
+        <h2>Visit us</h2>
+        <p class="lead">On S Western Ave, with a parking lot out front.</p>
+
+        <div class="visit-grid">
+          <div class="info">
+            <h3>Address</h3>
+            <address>
+              2711 S Western Ave<br>
+              Los Angeles, CA 90018
+            </address>
+
+            <h3>Hours</h3>
+            <div class="status" aria-live="polite"></div>
+            <table class="hours" id="hours-western" data-hours='{"0":[6,22],"1":[6,21],"2":[6,21],"3":[6,21],"4":[6,21],"5":[6,22],"6":[6,22]}' aria-label="Hours">
+              <tbody>
+                <tr data-day="1"><td>Monday</td><td>6:00 AM – 9:00 PM</td></tr>
+                <tr data-day="2"><td>Tuesday</td><td>6:00 AM – 9:00 PM</td></tr>
+                <tr data-day="3"><td>Wednesday</td><td>6:00 AM – 9:00 PM</td></tr>
+                <tr data-day="4"><td>Thursday</td><td>6:00 AM – 9:00 PM</td></tr>
+                <tr data-day="5"><td>Friday</td><td>6:00 AM – 10:00 PM</td></tr>
+                <tr data-day="6"><td>Saturday</td><td>6:00 AM – 10:00 PM</td></tr>
+                <tr data-day="0"><td>Sunday</td><td>6:00 AM – 10:00 PM</td></tr>
+              </tbody>
+            </table>
+            <p class="last-wash">Last wash: 7:30 PM Mon–Thu · 8:30 PM Fri–Sun</p>
+
+            <div class="cta">
+              <a class="btn btn-primary" href="https://www.google.com/maps/dir/?api=1&amp;destination=Goldstar+Laundry,+2711+S+Western+Ave,+Los+Angeles,+CA+90018" target="_blank" rel="noopener">🧭 Get directions</a>
+              <a class="btn btn-ghost" href="tel:+13238403348">📞 (323) 840-3348</a>
+            </div>
+          </div>
+
+          <div>
+            <iframe
+              class="map"
+              title="Map: Goldstar Laundry, 2711 S Western Ave, Los Angeles"
+              src="https://www.google.com/maps?q=Goldstar+Laundry,+2711+S+Western+Ave,+Los+Angeles,+CA+90018&amp;hl=en&amp;output=embed"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <img class="visit-photo" src="/img/storefront-dusk.jpg" alt="Goldstar Laundry storefront at dusk" loading="lazy" width="1600" height="900">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="rules">
+      <div class="wrap">
+        <h2>Good to know</h2>
+        <p class="lead">A few house rules so everyone has a good laundry day.</p>
+        <ul class="rules">
+          <li>Shirt and shoes required at all times</li>
+          <li>Restroom and WiFi are for customers only</li>
+          <li>Please don't sit on the folding tables</li>
+          <li>No smoking, alcohol or drugs</li>
+          <li>Pets must be held at all times</li>
+          <li>Refunds are given as a reward or voucher</li>
+          <li>We're not responsible for lost or damaged items</li>
+          <li>Caution: floors may be slippery</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <p>© <span id="year">2026</span> Goldstar Laundry · 2711 S Western Ave, Los Angeles, CA 90018</p>
+    </div>
+  </footer>
+
+  <script src="/assets/site.js"></script>
+</body>
+</html>
