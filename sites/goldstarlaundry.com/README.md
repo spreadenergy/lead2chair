@@ -1,0 +1,90 @@
+# goldstarlaundry.com — landing page
+
+Static landing page for **Goldstar Laundry** ("Gold Star Laundry", sign reads *Goldstar Laundry · Laundromat ·
+Lavandería*), a self-service laundromat at 2711 S Western Ave, Los Angeles.
+No build step. It is built like `sites/lasplebes.com/`: English at `/`, Spanish at `/es/`, and a
+browser-language redirect with a remembered switcher (`localStorage` key `gs-lang`).
+
+## Layout
+
+| Path | What |
+|---|---|
+| `public_html/index.html` | English page (default) |
+| `public_html/es/index.html` | Spanish page |
+| `public_html/assets/site.css`, `site.js` | Styles; language memory, open/closed badge (mirrored into the hero), year |
+| `public_html/img/` | Photos from the owner's shared Google Photos album (see below) |
+
+**Hours** appear in three places on each page, and both pages must match:
+
+- the visible rows of the hours table;
+- the table's `data-hours` attribute, which `site.js` reads to show the open/closed badge;
+- the JSON-LD `openingHoursSpecification`.
+
+
+## Photos
+
+These come from the "Gold Star Laundry" Google Photos album shared by SPREAD on 2026-09-30, which has 87 items.
+They were downloaded at web sizes from Google's image servers. EXIF data is already stripped by Google.
+
+| File | Album # | Used for |
+|---|---|---|
+| `storefront.jpg` | 1 | Hero background, og:image |
+| `storefront-dusk.jpg` | 62 | Visit section |
+| `dryers.jpg` | 60 | Gallery (large tile) |
+| `washer-aisle.jpg` | 87 | Gallery |
+| `washers-plant.jpg` | 35 | Gallery |
+| `touchscreen.jpg` | 21 | Gallery |
+| `washers.jpg` | 16 | Gallery |
+| `drum.jpg` | 20 | Gallery |
+| `top-loaders.jpg` | 17 | Gallery |
+| `payrange.jpg` | 49 | "Pay with your phone" section |
+
+Photos showing identifiable customers or children (for example #41, #46, #52–57 and #84–86) were deliberately
+**not** used.
+
+## Business facts used (researched 2026-09-30)
+
+| Fact | Value | Sources | Confidence |
+|---|---|---|---|
+| Name / branding | Goldstar Laundry; green and gold with a star | Storefront sign and rules sign in the album photos | High |
+| Address | 2711 S Western Ave, Los Angeles, CA 90018 | Yelp, both Nextdoor pages, Waze | High |
+| Phone | (323) 840-3348 | Google Business Profile; Nextdoor | High |
+| Hours | Every day 6am–10pm | Google Business Profile (screenshot shared by SPREAD, 2026-09-30); matches one Nextdoor page. The other listing's "Mon–Thu 9pm / last wash" hours are outdated | High |
+| Last wash | 8:30pm every day, shown as a note under the hours table and in the Visit section's intro text | Confirmed by SPREAD, 2026-10-12 | High |
+| Location | Inside the La Bodega Market #3 plaza | Google Business Profile | High |
+| Machines | 60 lb (6-load) and 80 lb (8-load) washers, top-loaders, a wall of stacked dryers, touchscreen washers | Wall signs and machines in the photos | High |
+| Payment | Coins, change machine, PayRange app | PayRange sticker and change machines in the photos; Nextdoor | High |
+| Amenities | WiFi and restroom for customers, drinks and snacks, laundry supplies, folding tables, TVs, security cameras | Rules sign and photos; Nextdoor | High |
+| House rules | Summarized from the bilingual "Rules & Policies" sign | Album photo #39 | High |
+| Domain | goldstarlaundry.com: registered 2019 at Squarespace Domains. It pointed at Google Sites, which returned a 404, until it moved to Hostinger in October 2026 | DNS/RDAP lookups, 2026-09-30 and 2026-10-09 | High |
+
+## Hosting and DNS
+
+The site is hosted on Hostinger (same account as the other sites). It was deployed on 2026-09-30 and went live on
+2026-10-09.
+
+- **Registrar:** Squarespace Domains.
+- **Nameservers:** Hostinger (`lunar.dns-parking.com`, `solar.dns-parking.com`), switched on 2026-10-08. Hostinger's
+  hPanel **Domains** page shows "Domain not found" for this domain because it isn't registered there. Edit its records
+  under **Websites → goldstarlaundry.com → DNS Zone Editor** instead.
+- **Email:** runs on Google Workspace. Any DNS change must keep the MX and SPF records. The Hostinger zone started
+  empty when the nameservers moved, so mail and the site were down from 2026-10-08 16:33 UTC until the records below
+  were added on 2026-10-09.
+
+Records in the zone, as checked on 2026-10-09:
+
+| Record | Value |
+|---|---|
+| `@` A | `194.163.47.253` |
+| `www` CNAME | `goldstarlaundry.com` |
+| `@` MX | `1 smtp.google.com` |
+| `@` TXT | `v=spf1 include:_spf.google.com ~all` |
+| `_dmarc` TXT | `v=DMARC1; p=none; …` |
+
+SSL is active. `http://` and `www` both redirect with a 301 to `https://goldstarlaundry.com/`.
+
+## To confirm with the owner
+
+- Whether they offer wash-and-fold or drop-off service. None was found online, so the page doesn't mention it.
+- Whether the domain had a Google Workspace DKIM key (`google._domainkey`). There is none in the zone now. If DKIM was
+  in use, regenerate it in the Workspace Admin console (Apps → Gmail → Authenticate email) and add it here.
