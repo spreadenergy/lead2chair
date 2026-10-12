@@ -50,29 +50,41 @@ Photos showing identifiable customers or children (for example #41, #46, #52–5
 | Address | 2711 S Western Ave, Los Angeles, CA 90018 | Yelp, both Nextdoor pages, Waze | High |
 | Phone | (323) 840-3348 | Google Business Profile; Nextdoor | High |
 | Hours | Every day 6am–10pm | Google Business Profile (screenshot shared by SPREAD, 2026-09-30); matches one Nextdoor page. The other listing's "Mon–Thu 9pm / last wash" hours are outdated | High |
+| Last wash | 8:30pm every day, shown as a note under the hours table and in the Visit section's intro text | Confirmed by SPREAD, 2026-10-12 | High |
 | Location | Inside the La Bodega Market #3 plaza | Google Business Profile | High |
 | Machines | 60 lb (6-load) and 80 lb (8-load) washers, top-loaders, a wall of stacked dryers, touchscreen washers | Wall signs and machines in the photos | High |
 | Payment | Coins, change machine, PayRange app | PayRange sticker and change machines in the photos; Nextdoor | High |
 | Amenities | WiFi and restroom for customers, drinks and snacks, laundry supplies, folding tables, TVs, security cameras | Rules sign and photos; Nextdoor | High |
 | House rules | Summarized from the bilingual "Rules & Policies" sign | Album photo #39 | High |
-| Domain | goldstarlaundry.com: registered 2019, Google Cloud DNS, currently returns a 404 (it points at Google Sites IPs) | DNS/RDAP lookup, 2026-09-30 | High |
+| Domain | goldstarlaundry.com: registered 2019 at Squarespace Domains. It pointed at Google Sites, which returned a 404, until it moved to Hostinger in October 2026 | DNS/RDAP lookups, 2026-09-30 and 2026-10-09 | High |
 
 ## Hosting and DNS
 
-The site is hosted on Hostinger (same account as the other sites) and was deployed there on 2026-09-30. The domain's
-DNS stays at Google because **the domain's email runs on Google Workspace** (MX `aspmx.l.google.com`, SPF
-`include:_spf.google.com`). Do **not** switch the nameservers to Hostinger, or email will break. Change only the
-website records instead:
+The site is hosted on Hostinger (same account as the other sites). It was deployed on 2026-09-30 and went live on
+2026-10-09.
 
-| Record | Change |
+- **Registrar:** Squarespace Domains.
+- **Nameservers:** Hostinger (`lunar.dns-parking.com`, `solar.dns-parking.com`), switched on 2026-10-08. Hostinger's
+  hPanel **Domains** page shows "Domain not found" for this domain because it isn't registered there. Edit its records
+  under **Websites → goldstarlaundry.com → DNS Zone Editor** instead.
+- **Email:** runs on Google Workspace. Any DNS change must keep the MX and SPF records. The Hostinger zone started
+  empty when the nameservers moved, so mail and the site were down from 2026-10-08 16:33 UTC until the records below
+  were added on 2026-10-09.
+
+Records in the zone, as checked on 2026-10-09:
+
+| Record | Value |
 |---|---|
-| `@` A | Replace the four Google Sites IPs (216.239.32/34/36/38.21) with `194.163.47.253` |
-| `www` | Add a CNAME to `goldstarlaundry.com` (or an A record to `194.163.47.253`) |
-| MX, TXT | Leave unchanged |
+| `@` A | `194.163.47.253` |
+| `www` CNAME | `goldstarlaundry.com` |
+| `@` MX | `1 smtp.google.com` |
+| `@` TXT | `v=spf1 include:_spf.google.com ~all` |
+| `_dmarc` TXT | `v=DMARC1; p=none; …` |
 
-After DNS propagates, make sure the free SSL certificate is active in hPanel (Websites → goldstarlaundry.com →
-Security → SSL).
+SSL is active. `http://` and `www` both redirect with a 301 to `https://goldstarlaundry.com/`.
 
 ## To confirm with the owner
 
 - Whether they offer wash-and-fold or drop-off service. None was found online, so the page doesn't mention it.
+- Whether the domain had a Google Workspace DKIM key (`google._domainkey`). There is none in the zone now. If DKIM was
+  in use, regenerate it in the Workspace Admin console (Apps → Gmail → Authenticate email) and add it here.
